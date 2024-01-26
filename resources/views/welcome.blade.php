@@ -1,12 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fuck You</title>
-    @vite('resources/css/app.css')
-</head>
-<body class="container">
-    <h1 class="font-black">Diskominfo</h1>
-</body>
-</html>
+@extends('layouts')
+
+@section('body')
+
+@extends('guest-navbar')
+<div class="hero min-h-screen" style="background-image: url(https://daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.jpg);">
+  <div class="hero-overlay bg-opacity-60"></div>
+  <div class="hero-content text-center text-neutral-content">
+    <div class="max-w-md">
+      <h1 class="mb-5 text-5xl font-bold">Layanan Laporan Pembayaran Retribusi Kota Semarang</h1>
+      <p class="mb-5">Layanan Pelaporan Pembayaran Retribusi kepada Dinas Komunikasi dan Statistika Pemerintah Kota Semarang</p>
+      <button class="btn btn-primary">Ajukan Laporan!</button>
+    </div>
+  </div>
+</div>
+
+@endsection
