@@ -13,9 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*
+ * PUBLIC
+*/
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+/*
+ * AUTH
+*/
 
 Route::get('/login', function () {
     return view('login');
@@ -25,18 +34,50 @@ Route::get('/dashboard', function () {
     return view('admin.dashboard');
 });
 
-Route::get('/retribution', function () {
-    return view('admin.retribution');
+/*
+ * RETRIBUTION
+*/
+
+Route::get('/retributions', function () {
+    return view('admin.retributions.list');
 });
+
+Route::get('/retributions/create', function () {
+    return view('admin.retributions.create');
+});
+
+/*
+ * RUSUNAWA
+*/
 
 Route::get('/rusunawa', function () {
-    return view('admin.rusunawa');
+    return view('admin.rusunawa.list');
 });
+
+Route::get('/rusunawa/create', function () {
+    return view('admin.rusunawa.create');
+});
+
+/*
+ * USERS
+*/
 
 Route::get('/users', function () {
-    return view('admin.users');
+    return view('admin.users.list');
 });
 
+Route::get('/users/create', function () {
+    return view('admin.users.create');
+});
+
+/*
+ * ROLES
+*/
+
 Route::get('/roles', function () {
-    return view('admin.roles');
+    return view('admin.roles.list');
+});
+
+Route::get('/roles/create', function () {
+    return view('admin.roles.create');
 });

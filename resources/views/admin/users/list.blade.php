@@ -5,10 +5,10 @@
 
 <div class="flex space-x-5">
   <input type="text" placeholder="Search users..." class="input input-bordered w-full" />
-  <button class="btn btn-primary">
+  <a class="btn btn-primary" href="/users/create">
     <span class="material-symbols-outlined">add</span>
     Tambah
-  </button>
+  </a>
 </div>
 
 <div class="overflow-x-auto">
