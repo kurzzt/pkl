@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('rusunawas', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('subname');
+            $table->enum('lantai', ['I', 'II', 'III', 'IV', 'V']);
+            $table->integer('tipe');
+            $table->integer('fare');
+            $table->enum('unit', ['day', 'month', 'year']);
             $table->timestamps();
         });
     }

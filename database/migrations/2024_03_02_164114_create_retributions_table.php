@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('retributions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('rusunawa_id')->reference('id')->on('rusunawas');
+            $table->foreignId('uploader_id')->reference('id')->on('uploaders');
+            $table->string('nominal');
+            $table->text('file');
+            $table->string('status');
             $table->timestamps();
         });
     }
