@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FileUploadController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RetributionController;
 use App\Http\Controllers\RusunawaController;
@@ -24,6 +25,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+/*
+ * File Uploader
+*/
+
+Route::post('/upload', [FileUploadController::class, 'storeUploads'])->name('file.upload');
 
 /*
  * AUTH
@@ -77,4 +83,12 @@ Route::prefix('users')->name('users.')->controller(UserController::class)->group
     Route::get('/{user}/edit', 'edit')->name('edit');
     Route::put('/{user}/update', 'update')->name('update');
     Route::delete('/{user}/destroy', 'destroy')->name('destroy');
+});
+
+/*
+ * ACCOUNT
+*/
+
+Route::get('/account', function () {
+    return view('admin.account');
 });

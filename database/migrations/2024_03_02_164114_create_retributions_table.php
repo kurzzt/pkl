@@ -17,8 +17,9 @@ return new class extends Migration
             $table->foreignId('uploader_id')->reference('id')->on('uploaders');
             $table->string('nominal');
             $table->text('file');
-            $table->string('status');
+            $table->string('status')->default('Unverified');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -28,5 +29,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('retributions');
+        Schema::table('rusunawas', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };
