@@ -1,11 +1,11 @@
 @extends('components.admin-sidebar')
-
-@section('sub-title', 'Users')
+@section('title', 'Rusunawa - Admin Dashboard')
+@section('sub-title', 'Rusunawa')
 @section('body')
 
 <div class="flex space-x-5">
-  <input type="text" placeholder="Search users..." class="input input-bordered w-full" />
-  <a class="btn btn-primary" href="{{route('users.create')}}">
+  <input type="text" placeholder="Search rusunawa..." class="input input-bordered w-full" />
+  <a class="btn btn-primary" href="{{ route('rusunawas.create')}}">
     <span class="material-symbols-outlined">add</span>
     Tambah
   </a>
@@ -22,15 +22,17 @@
     <thead>
       <tr>
         <th>Action</th>
-        <th>Name/Username</th>
-        <th>Email</th>
-        <th>Status</th>
+        <th>Name</th>
+        <th>Lantai</th>
+        <th>Type</th>
+        <th>Tarif Retribusi</th>
+        <th>Satuan</th>
         <th class="hidden lg:table-cell">Created At</th>
         <th class="hidden lg:table-cell">Updated At</th>
       </tr>
     </thead>
     <tbody>
-      @foreach($users as $user)
+      @foreach($rusunawas as $rusun)
 
       {{-- Delete Modal --}}
       <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
@@ -38,7 +40,7 @@
           <h3 class="font-bold text-lg">Delete Data Permanently</h3>
           <p class="py-4">Data that has been deleted cannot be restored. Are you sure?</p>
           <div class="modal-action">
-            <form action="{{ route('users.destroy', ['user' => $user]) }}" method="POST">
+            <form action="{{ route('rusunawas.destroy', ['rusunawa' => $rusun]) }}" method="POST">
               @csrf
               @method('DELETE')
               <button type='submit' class="btn btn-outline btn-primary">Delete</button>
@@ -50,25 +52,26 @@
 
       <tr>
         <th>
-          <a href="{{ route('users.show', $user->id) }}" class="btn btn-circle btn-sm btn-outline btn-info"><span class="material-symbols-outlined">info</span></a>
-          <a href="{{ route('users.edit', ['user' => $user]) }}" class="btn btn-circle btn-sm btn-outline btn-warning"><span class="material-symbols-outlined">edit</span></a>
+          <a href="{{ route('rusunawas.show', $rusun->id) }}" class="btn btn-circle btn-sm btn-outline btn-info"><span class="material-symbols-outlined">info</span></a>
+          <a href="{{ route('rusunawas.edit', ['rusunawa' => $rusun]) }}" class="btn btn-circle btn-sm btn-outline btn-warning"><span class="material-symbols-outlined">edit</span></a>
           <button class="btn btn-circle btn-sm btn-outline btn-error" onclick="document.getElementById('my_modal_5').showModal()"><span class="material-symbols-outlined">delete</span></button>
         </th>
         <td>
           <div class="flex items-center gap-3">
             <div>
-              <div class="font-bold">{{ $user->name}}</div>
-              <div class="text-sm opacity-50">{{ $user->username }}</div>
+              <div class="font-bold">{{ $rusun->name}}</div>
+              <div class="text-sm opacity-50">{{ $rusun->subname }}</div>
             </div>
           </div>
         </td>
-        <td>{{ $user->email }}</td>
-        <td>
-          <span @class([ 'badge', 'badge-success' => $user->status, 'badge-error' => ! $user->status ])>{{ $user->status ? 'active' : 'inactive' }}</span>
-        </td>
-        <td class="hidden lg:table-cell">{{ $user->created_at }}</td>
-        <td class="hidden lg:table-cell">{{ $user->updated_at }}</td>
+        <td>{{ $rusun->lantai}}</td>
+        <td>{{ $rusun->tipe}}</td>
+        <td>Rp {{ $rusun->fare}}</td>
+        <td>{{ $rusun->unit}}</td>
+        <td class="hidden lg:table-cell">{{ $rusun->created_at}}</td>
+        <td class="hidden lg:table-cell">{{ $rusun->updated_at}}</td>
       </tr>
+
       @endforeach
     </tbody>
   </table>

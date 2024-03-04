@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('fare');
             $table->enum('unit', ['day', 'month', 'year']);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -29,5 +30,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('rusunawas');
+        Schema::table('rusunawas', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
+        
     }
 };

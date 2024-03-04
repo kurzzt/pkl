@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RetributionController;
+use App\Http\Controllers\RusunawaController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,46 +41,40 @@ Route::get('/dashboard', function () {
  * RETRIBUTION
 */
 
-Route::get('/retributions', function () {
-    return view('admin.retributions.list');
-});
-
-Route::get('/retributions/create', function () {
-    return view('admin.retributions.create');
+Route::prefix('retributions')->name('retributions.')->controller(RetributionController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/', 'store')->name('store');
+    Route::get('/{retribution}', 'show')->name('show');
+    Route::get('/{retribution}/edit', 'edit')->name('edit');
+    Route::put('/{retribution}/update', 'update')->name('update');
+    Route::delete('/{retribution}/destroy', 'destroy')->name('destroy');
 });
 
 /*
  * RUSUNAWA
 */
 
-Route::get('/rusunawa', function () {
-    return view('admin.rusunawa.list');
-});
-
-Route::get('/rusunawa/create', function () {
-    return view('admin.rusunawa.create');
+Route::prefix('rusunawas')->name('rusunawas.')->controller(RusunawaController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/', 'store')->name('store');
+    Route::get('/{rusunawa}', 'show')->name('show');
+    Route::get('/{rusunawa}/edit', 'edit')->name('edit');
+    Route::put('/{rusunawa}/update', 'update')->name('update');
+    Route::delete('/{rusunawa}/destroy', 'destroy')->name('destroy');
 });
 
 /*
  * USERS
 */
 
-Route::get('/users', function () {
-    return view('admin.users.list');
-});
-
-Route::get('/users/create', function () {
-    return view('admin.users.create');
-});
-
-/*
- * ROLES
-*/
-
-Route::get('/roles', function () {
-    return view('admin.roles.list');
-});
-
-Route::get('/roles/create', function () {
-    return view('admin.roles.create');
+Route::prefix('users')->name('users.')->controller(UserController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/', 'store')->name('store');
+    Route::get('/{user}', 'show')->name('show');
+    Route::get('/{user}/edit', 'edit')->name('edit');
+    Route::put('/{user}/update', 'update')->name('update');
+    Route::delete('/{user}/destroy', 'destroy')->name('destroy');
 });

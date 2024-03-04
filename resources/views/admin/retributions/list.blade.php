@@ -6,10 +6,16 @@
 
 <div class="flex space-x-5">
   <input type="text" placeholder="Search retributions..." class="input input-bordered w-full" />
-  <a class="btn btn-primary" href="/retributions/create">
+  <a class="btn btn-primary" href="{{route('retributions.create')}}">
     <span class="material-symbols-outlined">add</span>
     Tambah
   </a>
+</div>
+
+<div>
+  @if(session()->has('success'))
+  <div>{{session('success')}}</div>
+  @endif
 </div>
 
 <div class="overflow-x-auto">

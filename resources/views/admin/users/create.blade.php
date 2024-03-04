@@ -5,43 +5,36 @@
 @section('body')
 
 <div class="">
-  <form action="" class="form-control space-y-2">
-    <div for="email">Name</div>
-    <input type="text" placeholder="Please Input Your Name" class="input input-bordered w-full" />
-  
-    <div for="name">Username</div>
-    <input type="text" placeholder="Please Input Your Username" class="input input-bordered w-full" />
-  
-    <div for="name">Email</div>
-    <input type="text" placeholder="Please Input Your Email" class="input input-bordered w-full" />
-
-    <div for="rusunawa">Role</div>
-    <select class="select select-bordered w-full">
-      <option disabled selected>Please Select Role</option>
-      <option>Super Admin</option>
-      <option>Admin</option>
-      <option>Guest</option>
-    </select>
-
-    <div for="name">Password</div>
-    <input type="password" placeholder="Please Input Your Password" class="input input-bordered w-full" />
-  
-    <div for="name">Confirm Password</div>
-    <input type="password" placeholder="Please Reinput Your Password" class="input input-bordered w-full" />
-
-    <!-- <div class="h-[40px]"></div> -->
-    
-    <!-- <div for="rusunawa" class="form-control">Status</div>
-    <div class="">
-      <input type="radio" name="radio-10" class="radio checked:bg-red-500" checked />
-      <span>Active</span>
+  @if($errors->any())
+    @foreach($errors->all() as $error)
+    <div role="alert" class="alert alert-error my-1">
+      <span class="material-symbols-outlined w-full">error</span>{{ $error }}
     </div>
-    <div class="">
-      <input type="radio" name="radio-10" class="radio checked:bg-red-500" checked />
-      <span>Inactive</span>
-    </div> -->
+    @endforeach
+  @endif
 
-    <a class="btn btn-primary w-full my-5" href="/retributions/create">Tambah</a>
+  <form action="{{route('users.store')}}" class="form-control space-y-2" method="POST">
+    @csrf
+    @method('POST')
+    <div for="name">Name</div>
+    <input type="text" placeholder="Please Input Your Name" class="input input-bordered w-full" id="name" name="name" value="{{old('name')}}" />
+
+    <div for="username">Username</div>
+    <input type="text" placeholder="Please Input Your Username" class="input input-bordered w-full" id="username" name="username" value="{{old('username')}}" />
+
+    <div for="email">Email</div>
+    <input type="text" placeholder="Please Input Your Email" class="input input-bordered w-full" id="email" name="email" value="{{old('email')}}"/>
+
+    <div for="password">Password</div>
+    <input type="password" placeholder="Please Input Your Password" class="input input-bordered w-full" id="password" name="password" />
+
+    <div for="password_confirmation">Confirm Password</div>
+    <input type="password" placeholder="Please Reinput Your Password" class="input input-bordered w-full" id="password_confirmation" name="password_confirmation" />
+
+    <div class="h-[40px]"></div>
+
+    <button type="submit" class="btn btn-primary w-full my-5">Tambah</button>
+    <a href="{{ route('rusunawas.index') }}" class="btn btn-secondary">Cancel</a>
   </form>
 </div>
 
