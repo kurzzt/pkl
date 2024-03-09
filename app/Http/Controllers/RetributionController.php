@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Retribution;
+use App\Models\Rusunawa;
 use Illuminate\Http\Request;
 
 class RetributionController extends Controller
@@ -13,10 +14,17 @@ class RetributionController extends Controller
     }
 
     public function create(){
-        return view('admin.retributions.create');
+        $rusunawas = Rusunawa::all();
+        return view('admin.retributions.create', ['rusunawas' => $rusunawas]);
     }
 
-    public function store(){
-        return view('admin.retributions.create');
+    public function store(Request $request){
+        dd($request);
+
+        // $data = $request->validate([
+        //     'rusunawa' => 'required|string',
+        //     'nominal' => 'required|integer',
+        //     'file' => 'required'
+        // ]);
     }
 }
