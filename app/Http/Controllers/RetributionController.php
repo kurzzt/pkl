@@ -27,4 +27,8 @@ class RetributionController extends Controller
         //     'file' => 'required'
         // ]);
     }
+
+    public function show(Retribution $retribution){
+        return view('admin.retributions.show', ['retribution' => $retribution]);
+    }
 }

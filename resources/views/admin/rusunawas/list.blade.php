@@ -4,7 +4,9 @@
 @section('body')
 
 <div class="flex space-x-5">
-  <input type="text" placeholder="Search rusunawa..." class="input input-bordered w-full" />
+  
+
+  <input type="text" placeholder="Search rusunawa..." class="input input-bordered w-full" id="search" onkeypress="{{ route('rusunawas.index')}}"/>
   <a class="btn btn-primary" href="{{ route('rusunawas.create')}}">
     <span class="material-symbols-outlined">add</span>
     Tambah
