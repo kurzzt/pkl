@@ -6,31 +6,28 @@
       </div>
       <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
         <li><a>Beranda</a></li>
-        <li><a>Item 2</a></li>
-        <li><a>Item 3</a></li>
+        <li><a>Layanan</a></li>
+        <li><a>Profile</a></li>
       </ul>
     </div>
-    <a class="btn btn-ghost text-xl">daisyUI</a>
+    <img src="{{url('/logo-1.png')}}" alt="Logo Diskominfo Semarang" class="mx-4 w-[90px]" />
   </div>
   <div class="navbar-center hidden lg:flex">
     <ul class="menu menu-horizontal px-1">
       <li><a>Beranda</a></li>
-      <li><a>Item 2</a></li>
-      <li><a>Item 3</a></li>
+      <li><a>Layanan</a></li>
+      <li><a>Profile</a></li>
     </ul>
   </div>
 
   @auth
-    {{-- ganti ke logout --}}
     <div class="navbar-end">
-      <div>{{ auth()->user()->name }}</div>
-      <form action="{{ route('auth.logout') }}" method="post">
-        @csrf
-        {{-- @method('POST') --}}
-        <button type="submit" class="btn btn-ghost w-full">
-          <span class="material-symbols-outlined">exit_to_app</span>
-        </button>
-      </form>
+      <div class="hidden lg:block">Welcome, {{ auth()->user()->name }}</div>
+      <div>
+        <a href="{{ route('dashboard') }}" type="submit" class="btn btn-ghost w-full">
+          <span class="material-symbols-outlined">dashboard</span>
+        </a>
+      </div>
     </div>
   @else
     <div class="navbar-end">

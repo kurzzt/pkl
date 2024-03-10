@@ -40,8 +40,9 @@ Route::post('/upload', [FileUploadController::class, 'storeUploads'])->name('fil
 Route::name('auth.')->controller(AuthController::class)->middleware('guest')->group(function () {
     Route::get('/login', 'login')->name('login');
     Route::post('/login', 'authenticate')->name('authenticate');
-    Route::post('/logout', 'logout')->name('logout');
 });
+
+Route::post('logout', [AuthController::class, 'logout'])->middleware('auth')->name('auth.logout');
 
 Route::middleware('auth')->get('/dashboard', [DashboardController::class, 'show'])->name('dashboard');
 

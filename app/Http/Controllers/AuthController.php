@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -28,12 +27,14 @@ class AuthController extends Controller
         return back()->with('loginError', 'Login Failed');
     }
 
-    public function logout(Request $request): RedirectResponse {
+    public function logout(Request $request){
+
+
         Auth::logout();
  
-        $request->session()->invalidate();
+        request()->session()->invalidate();
     
-        $request->session()->regenerateToken();
+        request()->session()->regenerateToken();
     
         return redirect('/');
     }
