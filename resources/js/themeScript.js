@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
   const themeCheckbox = document.getElementById('theme');
   const isDark = JSON.parse(localStorage.getItem('isDark'));
-  console.log("start")
   if (isDark === null) {
       localStorage.setItem('isDark', JSON.stringify(false));
   } else {

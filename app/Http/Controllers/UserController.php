@@ -10,8 +10,19 @@ use Illuminate\Validation\Rule;
 class UserController extends Controller
 {
     public function index(){
-        // $users = User::all();
-        $users = User::whereNotIn('id', [1])->get();
+        $users = User::query();
+        
+        if (request()->has('search')) {
+            $searchTerm = request('search');
+            $users = $users->where(function ($query) use ($searchTerm) {
+                $query->where('name', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('username', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('email', 'like', '%' . $searchTerm . '%');
+            });
+        }
+        
+        $users = $users->whereNotIn('id', [1])->get();
+
         return view('admin.users.list', ['users' => $users]);
     }
 

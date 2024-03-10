@@ -4,7 +4,9 @@
 @section('body')
 
 <div class="flex space-x-5">
-  <input type="text" placeholder="Search users..." class="input input-bordered w-full" />
+  <form action="{{ route('users.index')}}" class="flex w-full">
+    <input type="text" name="search" id="search" placeholder="Search by name, username, and email" class="input input-bordered w-full"/>
+  </form>
   <a class="btn btn-primary" href="{{route('users.create')}}">
     <span class="material-symbols-outlined">add</span>
     Tambah

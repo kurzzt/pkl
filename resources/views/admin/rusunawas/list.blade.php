@@ -3,10 +3,10 @@
 @section('sub-title', 'Rusunawa')
 @section('body')
 
-<div class="flex space-x-5">
-  
-
-  <input type="text" placeholder="Search rusunawa..." class="input input-bordered w-full" id="search" onkeypress="{{ route('rusunawas.index')}}"/>
+<div class="flex space-x-2">
+  <form action="{{ route('rusunawas.index')}}" class="flex w-full">
+    <input type="text" name="search" id="search" placeholder="Search by name and subname" class="input input-bordered w-full"/>
+  </form>
   <a class="btn btn-primary" href="{{ route('rusunawas.create')}}">
     <span class="material-symbols-outlined">add</span>
     Tambah

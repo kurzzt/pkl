@@ -9,7 +9,18 @@ use Illuminate\Validation\Rule;
 class RusunawaController extends Controller
 {
     public function index(){
-        $rusunawas = Rusunawa::all();
+        $rusunawas = Rusunawa::query();
+
+        if (request()->has('search')) {
+            $searchTerm = request('search');
+            $rusunawas = $rusunawas->where(function ($query) use ($searchTerm) {
+                $query->where('name', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('subname', 'like', '%' . $searchTerm . '%');
+            });
+        }
+
+        $rusunawas = $rusunawas->get();
+
         return view('admin.rusunawas.list', ['rusunawas' => $rusunawas]);
     }
 

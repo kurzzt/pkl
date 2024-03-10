@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <title>@yield('title', 'Diskominfo Kota Semarang')</title>
   @vite('resources/js/app.js')
   @vite('resources/css/app.css')
@@ -32,7 +32,7 @@
       <span class="material-symbols-outlined swap-off fill-current w-10 h-10">dark_mode</span>
     </label>
     
-    <div class="drawer-side">
+    <div class="drawer-side z-40">
       <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
       <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
         <li>
