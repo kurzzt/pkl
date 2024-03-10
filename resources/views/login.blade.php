@@ -11,20 +11,33 @@
       <p class="py-6">Sistem Manajemen Status Pembayaran Retribusi Dinas Komunikasi dan Statistika Pemerintahan Kota Semarang</p>
     </div>
     <div class="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-      <form class="card-body" >
-      @csrf
-      @method('POST')
+      
+      @if (session()->has('loginError'))
+      <div class="toast toast-top toast-center">
+        <div role="alert" class="alert alert-error">
+          <span class="material-symbols-outlined">cancel</span>
+          <span>{{ session('loginError') }}</span>
+          <div>
+            <button class="btn btn-sm btn-outline">x</button>
+          </div>
+        </div>
+      </div>
+      @endif
+
+      <form class="card-body" action="{{ route('auth.authenticate')}}" method="POST">
+        @csrf
+        @method('POST')
         <div class="form-control">
           <label class="label">
             <span class="label-text">Email</span>
           </label>
-          <input type="email" placeholder="xxx@email.com" class="input input-bordered" required />
+          <input name="email" id="email" type="email" placeholder="xxx@email.com" class="input input-bordered" autofocus required value="{{ old('email')}}"/>
         </div>
         <div class="form-control">
           <label class="label">
             <span class="label-text">Password</span>
           </label>
-          <input type="password" placeholder="******" class="input input-bordered" required />
+          <input id="password" name="password" type="password" placeholder="******" class="input input-bordered" required />
           <label class="label">
             <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
           </label>

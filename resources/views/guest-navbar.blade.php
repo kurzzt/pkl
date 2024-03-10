@@ -1,4 +1,4 @@
-<div class="navbar bg-base-100 z-40">
+<div class="navbar bg-base-100 z-40 sticky top-0 left-0">
   <div class="navbar-start">
     <div class="dropdown">
       <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
@@ -19,7 +19,22 @@
       <li><a>Item 3</a></li>
     </ul>
   </div>
-  <div class="navbar-end">
-    <a class="btn">Login</a>
-  </div>
+
+  @auth
+    {{-- ganti ke logout --}}
+    <div class="navbar-end">
+      <div>{{ auth()->user()->name }}</div>
+      <form action="{{ route('auth.logout') }}" method="post">
+        @csrf
+        {{-- @method('POST') --}}
+        <button type="submit" class="btn btn-ghost w-full">
+          <span class="material-symbols-outlined">exit_to_app</span>
+        </button>
+      </form>
+    </div>
+  @else
+    <div class="navbar-end">
+      <a href="{{ route('auth.login')}}" class="btn">Login</a>
+    </div>
+  @endauth
 </div>

@@ -64,6 +64,15 @@
             <span class="material-symbols-outlined">build</span>Account
           </a>
         </li>
+        <li>
+          <form action="{{ route('auth.logout') }}" method="POST" class="btn btn-ghost h-fit py-2">
+            @csrf
+            @method('POST')
+            <button type="submit">
+              <span class="material-symbols-outlined">exit_to_app</span>
+            </button>
+          </form>
+        </li>
 
       </ul>
     </div>
@@ -101,9 +110,14 @@
       <span class="material-symbols-outlined swap-off fill-current w-10 h-10">dark_mode</span>
     </label>
     
-    <a href="" class="btn btn-ghost w-full">
-      <span class="material-symbols-outlined">exit_to_app</span>
-    </a>
+    <form action="{{ route('auth.logout') }}" method="POST">
+      @csrf
+      @method('POST')
+      <button type="submit" class="btn btn-ghost w-full">
+        <span class="material-symbols-outlined">exit_to_app</span>
+      </button>
+    </form>
+
   </div>
 
   <div class="py-5 px-2 mx-auto space-y-5 container">

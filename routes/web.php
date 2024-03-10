@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileUploadController;
 use Illuminate\Support\Facades\Route;
@@ -24,7 +25,7 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home.index');
 
 /*
  * File Uploader
@@ -36,17 +37,20 @@ Route::post('/upload', [FileUploadController::class, 'storeUploads'])->name('fil
  * AUTH
 */
 
-Route::get('/login', function () {
-    return view('login');
+Route::name('auth.')->controller(AuthController::class)->middleware('guest')->group(function () {
+    Route::get('/login', 'login')->name('login');
+    Route::post('/login', 'authenticate')->name('authenticate');
+    Route::post('/logout', 'logout')->name('logout');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'show'])->name('dashboard');
+Route::middleware('auth')->get('/dashboard', [DashboardController::class, 'show'])->name('dashboard');
 
 /*
  * RETRIBUTION
 */
 
-Route::prefix('retributions')->name('retributions.')->controller(RetributionController::class)->group(function () {
+Route::prefix('retributions')->name('retributions.')->controller(RetributionController::class)
+    ->middleware('auth')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');
     Route::post('/', 'store')->name('store');
@@ -60,7 +64,8 @@ Route::prefix('retributions')->name('retributions.')->controller(RetributionCont
  * RUSUNAWA
 */
 
-Route::prefix('rusunawas')->name('rusunawas.')->controller(RusunawaController::class)->group(function () {
+Route::prefix('rusunawas')->name('rusunawas.')->controller(RusunawaController::class)
+    ->middleware('auth')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');
     Route::post('/', 'store')->name('store');
@@ -74,7 +79,8 @@ Route::prefix('rusunawas')->name('rusunawas.')->controller(RusunawaController::c
  * USERS
 */
 
-Route::prefix('users')->name('users.')->controller(UserController::class)->group(function () {
+Route::prefix('users')->name('users.')->controller(UserController::class)
+    ->middleware('auth')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');
     Route::post('/', 'store')->name('store');
@@ -88,6 +94,6 @@ Route::prefix('users')->name('users.')->controller(UserController::class)->group
  * ACCOUNT
 */
 
-Route::get('/account', function () {
+Route::middleware('auth')->get('/account', function () {
     return view('admin.account');
 });
