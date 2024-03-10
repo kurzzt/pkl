@@ -21,7 +21,7 @@ class UserController extends Controller
             });
         }
         
-        $users = $users->whereNotIn('id', [1])->get();
+        $users = $users->whereNotIn('id', [1])->paginate(5);
 
         return view('admin.users.list', ['users' => $users]);
     }

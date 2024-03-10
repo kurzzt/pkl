@@ -5,7 +5,7 @@
 
 <div class="flex space-x-5">
   <form action="{{ route('users.index')}}" class="flex w-full">
-    <input type="text" name="search" id="search" placeholder="Search by name, username, and email" class="input input-bordered w-full"/>
+    <input type="text" name="search" id="search" placeholder="Search by name, username, and email" class="input input-bordered w-full" value="{{ request('search') }}"/>
   </form>
   <a class="btn btn-primary" href="{{route('users.create')}}">
     <span class="material-symbols-outlined">add</span>
@@ -74,6 +74,7 @@
       @endforeach
     </tbody>
   </table>
+  <div class="flex justify-center py-4">{{ $users->links() }}</div>
 </div>
 
 <script>

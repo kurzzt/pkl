@@ -19,7 +19,7 @@ class RusunawaController extends Controller
             });
         }
 
-        $rusunawas = $rusunawas->get();
+        $rusunawas = $rusunawas->paginate(5);
 
         return view('admin.rusunawas.list', ['rusunawas' => $rusunawas]);
     }

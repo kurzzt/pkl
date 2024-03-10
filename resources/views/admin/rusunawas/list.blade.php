@@ -5,7 +5,7 @@
 
 <div class="flex space-x-2">
   <form action="{{ route('rusunawas.index')}}" class="flex w-full">
-    <input type="text" name="search" id="search" placeholder="Search by name and subname" class="input input-bordered w-full"/>
+    <input type="text" name="search" id="search" placeholder="Search by name and subname" class="input input-bordered w-full" value="{{ request('search') }}"/>
   </form>
   <a class="btn btn-primary" href="{{ route('rusunawas.create')}}">
     <span class="material-symbols-outlined">add</span>
@@ -77,6 +77,7 @@
       @endforeach
     </tbody>
   </table>
+  <div class="flex justify-center py-4">{{ $rusunawas->links() }}</div>
 </div>
 
 <script>
