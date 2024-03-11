@@ -5,7 +5,9 @@
 @section('body')
 
 <div class="flex space-x-5">
-  <input type="text" placeholder="Search retributions..." class="input input-bordered w-full" />
+  <form action="{{ route('retributions.index')}}" class="flex w-full">
+    <input type="text" name="search" id="search" placeholder="Search by rusunawa" class="input input-bordered w-full" value="{{ request('search') }}"/>
+  </form>
   <a class="btn btn-primary" href="{{route('retributions.create')}}">
     <span class="material-symbols-outlined">add</span>
     Tambah
@@ -24,7 +26,7 @@
       <tr>
         <th>Action</th>
         <th>Rusunawa</th>
-        <th>Uploader</th>
+        <th>Payment Of</th>
         <th>Nominal</th>
         <th>File</th>
         <th>Status</th>
@@ -57,23 +59,38 @@
           <a href="{{ route('retributions.edit', ['retribution' => $retribution]) }}" class="btn btn-circle btn-sm btn-outline btn-warning"><span class="material-symbols-outlined">edit</span></a>
           <button class="btn btn-circle btn-sm btn-outline btn-error" onclick="document.getElementById('my_modal_5').showModal()"><span class="material-symbols-outlined">delete</span></button>
         </th>
-        <td>{{ $retribution->rusunawa_id}}</td>
-        <td>{{ $retribution->uploader_id}}</td>
+        <td>
+          <div class="flex items-center gap-3">
+            <div>
+              <div class="font-bold">{{ $retribution->name}}</div>
+              <div class="text-sm opacity-50">{{ $retribution->subname }}</div>
+            </div>
+          </div>
+        </td>
+        <td>{{ $retribution->payment_of}}</td>
         <td>Rp {{ $retribution->nominal}}</td>
         <td>
         
         <img class="rounded w-[100px]" src="{{ $retribution->file}}" alt="Doc File">
         </td>
         <td>
-          <span @class([ 'badge', 'badge-success' => $retribution->status, 'badge-error' => ! $retribution->status ])>{{ $retribution->status ? 'Verified' : 'Unverified' }}</span>
+          <span @class([ 
+            'badge', 
+            'badge-success' => $retribution->status == 'Verified', 
+            'badge-error' => $retribution->status == 'Unverified'
+          ])>
+            {{ $retribution->status }}
+          </span>
         </td>
         <td class="hidden lg:table-cell">{{ $retribution->created_at}}</td>
         <td class="hidden lg:table-cell">{{ $retribution->updated_at}}</td>
       </tr>
-
       @endforeach
     </tbody>
   </table>
+
+  <div class="flex justify-center py-4">{{ $retributions->links() }}</div>
+
 </div>
 
 

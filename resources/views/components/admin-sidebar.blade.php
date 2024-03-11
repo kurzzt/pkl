@@ -27,7 +27,7 @@
     <div class="w-full"></div>
     
     <label class="swap swap-rotate">
-      <input id="theme" type="checkbox" class="theme-controller" value="dark" />
+      <input id="theme" type="checkbox" class="theme-controller" value="light" />
       <div class="swap-on fill-current w-10 h-10"><span class="material-symbols-outlined">light_mode</span></div>
       <span class="material-symbols-outlined swap-off fill-current w-10 h-10">dark_mode</span>
     </label>
@@ -105,7 +105,7 @@
     <div class="h-full"></div>
 
     <label class="swap swap-rotate">
-      <input id="theme" type="checkbox" class="theme-controller" value="dark" />
+      <input id="theme" type="checkbox" class="theme-controller" value="light" />
       <div class="swap-on fill-current w-10 h-10"><span class="material-symbols-outlined">light_mode</span></div>
       <span class="material-symbols-outlined swap-off fill-current w-10 h-10">dark_mode</span>
     </label>

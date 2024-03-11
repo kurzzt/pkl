@@ -25,16 +25,16 @@ class FileUploadController extends Controller
                 'file' => 'required|file|max:5120|mimes:png,jpg,jpeg', // Maksimum 5MB',
             ]);
             $uploadedFile = $request->file('file')->getRealPath();
-            $uploaded = Cloudinary::upload($uploadedFile, [
-                'folder' => $path
-            ])->getSecurePath();
 
-            // Mendapatkan secure link dari hasil upload ke Cloudinary
-            $secureLink = $uploaded->secure_url;
+            $uploaded = Cloudinary::upload($uploadedFile, [
+                'folder' => $path,
+            ]);
+
+            $secure_url = $uploaded->getSecurePath();
 
             return response()->json([
                 'status' => true,
-                'pathfile' => $secureLink,
+                'pathfile' => $secure_url
             ]);
         } catch (\Exception $e) {
             return response()->json([

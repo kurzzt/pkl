@@ -13,6 +13,8 @@ class Retribution extends Model
     protected $fillable = [
         'rusunawa_id',
         'uploader_id',
+        'uploader_type',
+        'payment_of',
         'nominal',
         'file',
         'status'

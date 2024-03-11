@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('rusunawa_id')->reference('id')->on('rusunawas');
             $table->foreignId('uploader_id')->reference('id')->on('uploaders');
+            $table->enum('uploader_type', ['admin', 'guest']);
+            $table->date('payment_of');
             $table->string('nominal');
             $table->text('file');
             $table->string('status')->default('Unverified');

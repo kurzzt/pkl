@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\FileUploadController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RetributionController;
 use App\Http\Controllers\RusunawaController;
@@ -26,12 +25,6 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('welcome');
 })->name('home.index');
-
-/*
- * File Uploader
-*/
-
-Route::post('/upload', [FileUploadController::class, 'storeUploads'])->name('file.upload');
 
 /*
  * AUTH
