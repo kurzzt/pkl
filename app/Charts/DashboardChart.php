@@ -16,8 +16,8 @@ class DashboardChart
 
     public function retribution(): \ArielMejiaDev\LarapexCharts\PieChart
     {
-        $verifiedRetribution = Retribution::where('status', true)->count();
-        $unverifiedRetribution = Retribution::where('status', false)->count();
+        $verifiedRetribution = Retribution::where('status', 'Verified')->count();
+        $unverifiedRetribution = Retribution::where('status', 'Unverified')->count();
         return $this->chart->pieChart()
             ->setTitle('Status Pembayaran Retribusi')
             ->setSubtitle('Seluruh Data Tabel Retribusi')

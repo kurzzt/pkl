@@ -6,14 +6,24 @@ use App\Models\Retribution;
 use App\Models\Rusunawa;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Models\User;
+use App\Models\Uploader;
 
 class RetributionController extends Controller
 {
     public function index(){
+        // kinda ugly code yg penting kelar for now wkwkw
+        $search = request('search');
         $retributions = Retribution::join('users', 'retributions.uploader_id', '=', 'users.id')
             ->join('rusunawas', 'retributions.rusunawa_id', '=', 'rusunawas.id')
-            ->select('users.email','rusunawas.name','rusunawas.subname', 'retributions.*');
-
+            ->select('users.email','rusunawas.name','rusunawas.subname', 'rusunawas.lantai', 'retributions.*');
+        
+            if ($search) {
+            $retributions->where(function ($query) use ($search) {
+                $query->where('rusunawas.name', 'like', '%'.$search.'%')
+                        ->orWhere('rusunawas.subname', 'like', '%'.$search.'%');
+            });
+        }
         $retributions = $retributions->paginate(5);
         return view('admin.retributions.list', ['retributions' => $retributions]);
     }
@@ -51,7 +61,6 @@ class RetributionController extends Controller
             // taruh di uploader_id
         }
         
-
         $data = [
             'rusunawa_id' => $request->rusunawa,
             'uploader_id' => $uploader_id,
@@ -66,6 +75,60 @@ class RetributionController extends Controller
     }
 
     public function show(Retribution $retribution){
-        return view('admin.retributions.show', ['retribution' => $retribution]);
+        if( $retribution->uploader_type == 'admin'){
+            $uploader = User::find($retribution->uploader_id);
+        } else {
+            $uploader = Uploader::find($retribution->uploader_id);
+        };
+
+        $rusunawa = Rusunawa::find($retribution->rusunawa_id);
+
+        return view('admin.retributions.show', [
+            'uploader' => $uploader,
+            'retribution' => $retribution,
+            'rusunawa' => $rusunawa
+        ]);
+    }
+
+    public function edit(Retribution $retribution){
+        $rusunawas = Rusunawa::all();
+        if( $retribution->uploader_type == 'admin'){
+            $uploader = User::find($retribution->uploader_id);
+        } else {
+            $uploader = Uploader::find($retribution->uploader_id);
+        };
+        
+        return view('admin.retributions.edit', [
+            'retribution' => $retribution,
+            'uploader' => $uploader,
+            'rusunawas' => $rusunawas
+        ]);
+    }
+
+    public function update(Retribution $retribution, Request $request){
+        $data = $this->validate($request, [
+            'rusunawa_id' => 'required|string',
+            'nominal' => 'required|integer',
+            'file' => 'required|string',
+            'uploader_type' => ['optional', Rule::in(['admin', 'guest'])],
+            'uploader_id' => 'optional|string',
+            'payment_of' => [
+                'required',
+                'date',
+                Rule::unique('retributions')->ignore($retribution->id)->where(function ($query) use ($request) {
+                    $monthYear = date('Y-m', strtotime($request->payment_of));
+                    $query->where('rusunawa_id', $request->rusunawa_id)
+                          ->whereRaw("DATE_FORMAT(payment_of, '%Y-%m') = ?", [$monthYear]);
+                }),
+            ],
+            'status' => ['required', Rule::in(['Verified', 'Unverified'])],
+        ]);
+        $retribution->update($data);
+        return redirect(route('retributions.index'))->with('success', 'Retribution Updated Succesfully');
+    }
+
+    public function destroy(Retribution $retribution){
+        $retribution->delete();
+        return redirect(route('retributions.index'))->with('success', 'Retribution deleted Succesffully');
     }
 }

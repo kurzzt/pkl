@@ -4,7 +4,6 @@
 @section('sub-title', 'Dashboard')
 @section('body')
 
-
 <div class="stats shadow w-full flex flex-col md:flex-row">
   
   <div class="stat">
@@ -33,7 +32,7 @@
   
 </div>
 
-<div class="my-4 bg-base-100 rounded-lg shadow-lg min-w-fit w-1/3 min-h-fit">
+<div class="my-4 bg-base-100 rounded-lg shadow-lg min-w-fit sm:w-1/3 sm:min-h-fit w-full">
   {!! $chart->container() !!}
 </div>
 

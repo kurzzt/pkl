@@ -5,38 +5,66 @@
 @section('body')
 
 <div class="">
-    {{ $retribution}}
-    
-    <div class="h-[30px]"></div>
-    
-    <div class="flex flex-col space-y-4">
-      <div>Rusunawa: xxx</div>
-      <div>Nama Uploader: xx</div>
-      <div>Email Uploader: xx</div>
-      
-      <div>Nominal: Rp {{$retribution->nominal}}</div>
-      <div>File: 
-        <span>
-          <img class="w-[100px] rounded" src="{{$retribution->file}}" alt="Doc File">
-        </span>  
-      </div>
-      <div>Status: 
-        <span @class([ 
+  <div class="flex flex-col space-y-4">
+    <table class="table table-zebra">
+      <tr>
+        <td>Rusunawa</td>
+        <td>{{ $rusunawa->name }} - {{ $rusunawa->subname }}</td>
+      </tr>
+      <tr>
+        <td>Rusunawa Lantai</td>
+        <td>{{ $rusunawa->lantai }}</td>
+      </tr>
+      <tr>
+        <td>Nama Uploader</td>
+        <td>{{ $uploader->name }}</td>
+      </tr>
+      <tr>
+        <td>Email Uploader</td>
+        <td>{{ $uploader->email }}</td>
+      </tr>
+      <tr>
+        <td>Nominal</td>
+        <td>Rp {{$retribution->nominal}}</td>
+      </tr>
+      <tr>
+        <td>File</td>
+        <td>
+          <a href={{ $retribution->file }} target='_blank'>
+            <img class="w-[100px] rounded" src="{{$retribution->file}}" alt="Doc File">
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>
+          <span @class([ 
             'badge', 
             'badge-success' => $retribution->status == 'Verified', 
             'badge-error' => $retribution->status == 'Unverified'
           ])>
             {{ $retribution->status }}
-        </span>
-      </div>
-      <div>Pembayaran Bulan: {{$retribution->payment_of}}</div>
-      <div>Created At: {{$retribution->created_at}}</div>
-      <div>Updated At: {{$retribution->updated_at}}</div>
-    </div>
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td>Pembayaran Bulan</td>
+        <td>{{$retribution->payment_of}}</td>
+      </tr>
+      <tr>
+        <td>Created At</td>
+        <td>{{$retribution->created_at}}</td>
+      </tr>
+      <tr>
+        <td>Updated At</td>
+        <td>{{$retribution->updated_at}}</td>
+      </tr>
+    </table>
+  </div>
 
-    <div class="h-[30px]"></div>
-
-    <a class="btn btn-ghost btn-outline w-full my-5" href="{{ route('retributions.index')}}">Back</a>
+  <div class="h-[30px]"></div>
+  
+  <a class="btn btn-ghost btn-outline w-full my-5" href="{{ route('retributions.index')}}">Back</a>
 </div>
 
 @endsection

@@ -35,7 +35,7 @@
       @foreach($users as $user)
 
       {{-- Delete Modal --}}
-      <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+      <dialog id="my_modal_{{$user->id}}" class="modal modal-bottom sm:modal-middle">
         <div class="modal-box">
           <h3 class="font-bold text-lg">Delete Data Permanently</h3>
           <p class="py-4">Data that has been deleted cannot be restored. Are you sure?</p>
@@ -45,7 +45,7 @@
               @method('DELETE')
               <button type='submit' class="btn btn-outline btn-primary">Delete</button>
             </form>
-            <button onclick="document.getElementById('my_modal_5').close()" class="btn btn-error">Cancel</button>
+            <button onclick="document.getElementById('my_modal_{{$user->id}}').close()" class="btn btn-error">Cancel</button>
           </div>
         </div>
       </dialog>
@@ -54,7 +54,7 @@
         <th>
           <a href="{{ route('users.show', $user->id) }}" class="btn btn-circle btn-sm btn-outline btn-info"><span class="material-symbols-outlined">info</span></a>
           <a href="{{ route('users.edit', ['user' => $user]) }}" class="btn btn-circle btn-sm btn-outline btn-warning"><span class="material-symbols-outlined">edit</span></a>
-          <button class="btn btn-circle btn-sm btn-outline btn-error" onclick="document.getElementById('my_modal_5').showModal()"><span class="material-symbols-outlined">delete</span></button>
+          <button class="btn btn-circle btn-sm btn-outline btn-error" onclick="document.getElementById('my_modal_{{$user->id}}').showModal()"><span class="material-symbols-outlined">delete</span></button>
         </th>
         <td>
           <div class="flex items-center gap-3">
@@ -74,8 +74,9 @@
       @endforeach
     </tbody>
   </table>
-  <div class="flex justify-center py-4">{{ $users->links() }}</div>
 </div>
+
+<div class="flex justify-center py-4">{{ $users->links() }}</div>
 
 <script>
   var toastMessage = document.querySelector('.toast .alert');

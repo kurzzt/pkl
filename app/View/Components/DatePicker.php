@@ -13,7 +13,8 @@ class DatePicker extends Component
      */
     public function __construct(
         public string $name,
-        public string $label
+        public string $label,
+        public string $value = ''
     ) { }
 
     /**

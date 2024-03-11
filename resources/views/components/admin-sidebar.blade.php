@@ -14,7 +14,7 @@
 
 <body class="flex flex-col sm:flex-row">
 
-  <div class="drawer flex sm:hidden bg-base-300 navbar">
+  <div class="drawer flex sm:hidden bg-base-300 navbar sticky top-0">
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
     
     <div class="drawer-content">
@@ -78,7 +78,7 @@
     </div>
   </div>
 
-  <div class="bg-base-300 h-screen w-[120px] flex-col items-center py-5 space-y-5 hidden sm:flex">
+  <div class="bg-base-300 h-screen w-[120px] flex-col items-center py-5 space-y-5 hidden sm:flex sticky top-0 bottom-0 left-0">
     <img src="{{url('/logo-2.png')}}" alt="Logo Diskominfo Semarang" class="w-[50px]" />
     <div class="flex flex-col items-center justify-center space-y-3 mx-3 my-4">
       <a href="{{route('dashboard')}}" class="btn btn-ghost h-fit text-xs py-2">

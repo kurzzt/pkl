@@ -3,11 +3,11 @@
 <input type="file" class="file-input file-input-bordered w-full" id="file_submit" name="file_submit"/>
 
 {{-- hidden value --}}
-<input type="hidden" value="" name="{{ $name }}" id="{{ $name }}">
+<input type="hidden" value="{{$imgPreview}}" name="{{ $name }}" id="{{ $name }}">
 
 <div id="file_uploaded" class="w-[200px] bg-clip-content hover:bg-opacity-60">
-  <a id="image_link" href="" target="_blank" class="hover:bg-opacity-60">
-    <img id="uploaded_image" class="rounded-md" src="" alt="">
+  <a id="image_link" href="{{$imgPreview}}" target="_blank" class="hover:bg-opacity-60">
+    <img id="uploaded_image" class="rounded-md" src="{{$imgPreview}}" alt="">
   </a>  
 </div>
 

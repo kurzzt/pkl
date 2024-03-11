@@ -14,9 +14,9 @@
   </a>
 </div>
 
-<div>
+<div class="toast toast-end">
   @if(session()->has('success'))
-  <div>{{session('success')}}</div>
+    <div class="alert alert-success"><span>{{session('success')}}</span></div>
   @endif
 </div>
 
@@ -28,7 +28,7 @@
         <th>Rusunawa</th>
         <th>Payment Of</th>
         <th>Nominal</th>
-        <th>File</th>
+        <th class="hidden lg:table-cell">File</th>
         <th>Status</th>
         <th class="hidden lg:table-cell">Created At</th>
         <th class="hidden lg:table-cell">Updated At</th>
@@ -38,7 +38,7 @@
       @foreach($retributions as $retribution)
 
       {{-- Delete Modal --}}
-      <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+      <dialog id="my_modal_{{$retribution->id}}" class="modal modal-bottom sm:modal-middle">
         <div class="modal-box">
           <h3 class="font-bold text-lg">Delete Data Permanently</h3>
           <p class="py-4">Data that has been deleted cannot be restored. Are you sure?</p>
@@ -48,7 +48,7 @@
               @method('DELETE')
               <button type='submit' class="btn btn-outline btn-primary">Delete</button>
             </form>
-            <button onclick="document.getElementById('my_modal_5').close()" class="btn btn-error">Cancel</button>
+            <button onclick="document.getElementById('my_modal_{{$retribution->id}}').close()" class="btn btn-error">Cancel</button>
           </div>
         </div>
       </dialog>
@@ -57,21 +57,20 @@
         <th>
           <a href="{{ route('retributions.show', $retribution->id) }}" class="btn btn-circle btn-sm btn-outline btn-info"><span class="material-symbols-outlined">info</span></a>
           <a href="{{ route('retributions.edit', ['retribution' => $retribution]) }}" class="btn btn-circle btn-sm btn-outline btn-warning"><span class="material-symbols-outlined">edit</span></a>
-          <button class="btn btn-circle btn-sm btn-outline btn-error" onclick="document.getElementById('my_modal_5').showModal()"><span class="material-symbols-outlined">delete</span></button>
+          <button class="btn btn-circle btn-sm btn-outline btn-error" onclick="document.getElementById('my_modal_{{$retribution->id}}').showModal()"><span class="material-symbols-outlined">delete</span></button>
         </th>
         <td>
           <div class="flex items-center gap-3">
             <div>
               <div class="font-bold">{{ $retribution->name}}</div>
-              <div class="text-sm opacity-50">{{ $retribution->subname }}</div>
+              <div class="text-sm opacity-50">{{ $retribution->subname }} - {{ $retribution->lantai }}</div>
             </div>
           </div>
         </td>
         <td>{{ $retribution->payment_of}}</td>
         <td>Rp {{ $retribution->nominal}}</td>
-        <td>
-        
-        <img class="rounded w-[100px]" src="{{ $retribution->file}}" alt="Doc File">
+        <td class="hidden lg:table-cell">
+          <img class="rounded w-[100px]" src="{{ $retribution->file}}" alt="Doc File">
         </td>
         <td>
           <span @class([ 
@@ -88,10 +87,16 @@
       @endforeach
     </tbody>
   </table>
-
-  <div class="flex justify-center py-4">{{ $retributions->links() }}</div>
-
 </div>
 
+<div class="flex justify-center py-4">{{ $retributions->links() }}</div>
 
+<script>
+  var toastMessage = document.querySelector('.toast .alert');
+  if (toastMessage) {
+      setTimeout(function () {
+          toastMessage.parentElement.remove();
+      }, 5000);
+  }
+</script>
 @endsection
