@@ -39,6 +39,10 @@ class RusunawaController extends Controller
         ]);
 
         $newRusun = Rusunawa::create($data);
+
+        $activityLog = new UserController;
+        $activityLog->userAction(auth()->user()->id, 'User create rusunawa data with id '. $newRusun->id);
+        
         return redirect(route('rusunawas.index'));
     }
 
@@ -60,11 +64,18 @@ class RusunawaController extends Controller
             'unit' => ['required', Rule::in(['day', 'year', 'month'])],
         ]);
         $rusunawa->update($data);
+
+        $activityLog = new UserController;
+        $activityLog->userAction(auth()->user()->id, 'User edit rusunawa data with id '. $rusunawa->id);
         return redirect(route('rusunawas.index'))->with('success', 'Rusunawa Updated Succesffully');
     }
 
     public function destroy(Rusunawa $rusunawa){
         $rusunawa->delete();
+        
+        $activityLog = new UserController;
+        $activityLog->userAction(auth()->user()->id, 'User delete rusunawa data with id '. $rusunawa->id);
+        
         return redirect(route('rusunawas.index'))->with('success', 'Rusunawa deleted Succesffully');
     }
 }

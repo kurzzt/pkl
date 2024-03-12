@@ -52,9 +52,29 @@
 
       <tr>
         <th>
-          <a href="{{ route('users.show', $user->id) }}" class="btn btn-circle btn-sm btn-outline btn-info"><span class="material-symbols-outlined">info</span></a>
-          <a href="{{ route('users.edit', ['user' => $user]) }}" class="btn btn-circle btn-sm btn-outline btn-warning"><span class="material-symbols-outlined">edit</span></a>
-          <button class="btn btn-circle btn-sm btn-outline btn-error" onclick="document.getElementById('my_modal_{{$user->id}}').showModal()"><span class="material-symbols-outlined">delete</span></button>
+          @php
+                $disableButtons = $user->id == 1 || $user->id == auth()->user()->id;
+          @endphp
+
+          <a 
+            href="{{ route('users.show', $user->id) }}" class="btn btn-circle btn-sm btn-outline btn-info"><span class="material-symbols-outlined">info</span></a>
+          <a 
+            href="{{ route('users.edit', ['user' => $user]) }}" 
+            @class([
+              'btn btn-circle btn-sm btn-outline btn-warning',
+              'btn-disabled' => $disableButtons
+            ])
+            >
+            <span class="material-symbols-outlined">edit</span>
+          </a>
+          <button 
+            @class([
+              'btn btn-circle btn-sm btn-outline btn-error',
+              'btn-disabled' => $disableButtons
+            ])
+            onclick="document.getElementById('my_modal_{{$user->id}}').showModal()">
+            <span class="material-symbols-outlined">delete</span>
+          </button>
         </th>
         <td>
           <div class="flex items-center gap-3">

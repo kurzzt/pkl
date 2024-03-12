@@ -5,20 +5,40 @@
 @section('body')
 
 <div>
-  <div>Name: {{ auth()->user()->name }}</div>
-  <div>Username: {{ auth()->user()->username }}</div>
-  <div>Email: {{ auth()->user()->email }}</div>
-  <div>Status: 
-    <span @class([ 
-      'badge', 
-      'badge-success' => auth()->user()->status, 
-      'badge-error' => ! auth()->user()->status 
-    ])>
-      {{ auth()->user()->status ? 'active' : 'inactive' }}
-    </span>
-  </div>
-  <div>Created At: {{ auth()->user()->created_at }}</div>
-  <div>Updated At: {{ auth()->user()->updated_at }}</div>
+  <table class="table table-zebra">
+    <tr>
+      <td>Name</td>
+      <td>{{ auth()->user()->name }}</td>
+    </tr>
+    <tr>
+      <td>Username</td>
+      <td>{{ auth()->user()->username }}</td>
+    </tr>
+    <tr>
+      <td>Email</td>
+      <td>{{ auth()->user()->email }}</td>
+    </tr>
+    <tr>
+      <td>Status</td>
+      <td>
+        <span @class([ 
+          'badge', 
+          'badge-success' => auth()->user()->status, 
+          'badge-error' => ! auth()->user()->status 
+        ])>
+          {{ auth()->user()->status ? 'active' : 'inactive' }}
+        </span>
+      </td>
+    </tr>
+    <tr>
+      <td>Created At</td>
+      <td>{{ auth()->user()->created_at }}</td>
+    </tr>
+    <tr>
+      <td>Updated At</td>
+      <td>{{ auth()->user()->updated_at }}</td>
+    </tr>
+  </table>
 </div>
 
 @endsection

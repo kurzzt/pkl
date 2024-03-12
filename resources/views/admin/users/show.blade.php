@@ -43,7 +43,7 @@
   
   <h1 class="font-bold text-xl">User Activity</h1>
   <div  class="overflow-x-auto">
-    <table class="table">
+    <table class="table table-zebra">
       <thead>
         <tr>
           <th>Action</th>
@@ -60,6 +60,7 @@
       </tbody>
     </table>
   </div>
+  <div class="flex justify-center py-4">{{ $user_activity->links() }}</div>
 
   <div class="h-[30px]"></div>
 

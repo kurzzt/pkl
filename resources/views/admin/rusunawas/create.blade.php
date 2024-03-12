@@ -17,14 +17,14 @@
     @csrf
     @method('POST')
     <div for="name">Name</div>
-    <input type="text" placeholder="Please Input Name" class="input input-bordered w-full" id="name" name="name" value="{{old('name')}}" />
+    <input required type="text" placeholder="Please Input Name" class="input input-bordered w-full" id="name" name="name" value="{{old('name')}}" />
 
     <div for="subname">Subname</div>
-    <input type="text" placeholder="Please Input Subname" class="input input-bordered w-full" id="subname" name="subname" value="{{old('subname')}}" />
+    <input required type="text" placeholder="Please Input Subname" class="input input-bordered w-full" id="subname" name="subname" value="{{old('subname')}}" />
 
     <div for="lantai">Lantai</div>
-    <select id="lantai" name="lantai" class="select select-bordered w-full">
-      <option disabled selected>Please Select Lantai</option>
+    <select required id="lantai" name="lantai" class="select select-bordered w-full">
+      <option disabled selected value=''>Please Select Lantai</option>
       <option value="I">I</option>
       <option value="II">II</option>
       <option value="III">III</option>
@@ -33,8 +33,8 @@
     </select>
 
     <div for="tipe">Type</div>
-    <select id="tipe" name="tipe" class="select select-bordered w-full">
-      <option disabled selected>Please Select Type</option>
+    <select required id="tipe" name="tipe" class="select select-bordered w-full">
+      <option disabled selected value=''>Please Select Type</option>
       <option value=24>24</option>
       <option value=27>27</option>
       <option value=36>36</option>
@@ -43,11 +43,11 @@
     </select>
     
     <div for="fare">Tarif Retribusi</div>
-    <input type="number" placeholder="Please Input Retribution Fare" class="input input-bordered w-full" id="fare" name="fare" />
+    <input required type="number" placeholder="Please Input Retribution Fare" class="input input-bordered w-full" id="fare" name="fare" />
 
     <div for="unit">Satuan</div>
-    <select id="unit" name="unit" class="select select-bordered w-full">
-      <option disabled selected>Please Select Unit</option>
+    <select required id="unit" name="unit" class="select select-bordered w-full">
+      <option disabled selected value=''>Please Select Unit</option>
       <option value="year">Per Tahun </option>
       <option value="month">Per Bulan</option>
       <option value="day">Per Hari</option>

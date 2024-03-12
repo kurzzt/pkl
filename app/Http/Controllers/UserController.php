@@ -21,7 +21,7 @@ class UserController extends Controller
             });
         }
         
-        $users = $users->whereNotIn('id', [1])->paginate(5);
+        $users = $users->paginate(5);
 
         return view('admin.users.list', ['users' => $users]);
     }
@@ -46,12 +46,20 @@ class UserController extends Controller
         ];
 
         $newUser = User::create($data);
+
+        $activityLog = new UserController;
+        $activityLog->userAction(auth()->user()->id, 'User create a new account with id '. $newUser->id);
         return redirect(route('users.index'));
     }
 
     public function show(User $user){
-        $user_activity = ActivityLog::where('user_id', $user->id)->get();
-        return view('admin.users.show', ['user' => $user, 'user_activity' => $user_activity]);
+        $user_activity = ActivityLog::where('user_id', $user->id);
+        $user_activity = $user_activity->paginate(5);
+
+        return view('admin.users.show', [
+            'user' => $user, 
+            'user_activity' => $user_activity
+        ]);
     }
 
     public function edit(User $user){
@@ -77,11 +85,18 @@ class UserController extends Controller
         ];
 
         $user->update($data);
+
+        $activityLog = new UserController;
+        $activityLog->userAction(auth()->user()->id, 'User edit an account with id '. $user->id);
         return redirect(route('users.index'))->with('success', 'User Updated Succesfully');
     }
 
     public function destroy(User $user){
         $user->delete();
+        
+        $activityLog = new UserController;
+        $activityLog->userAction(auth()->user()->id, 'User delete an account with id '. $user->id);
+        
         return redirect(route('users.index'))->with('success', 'User deleted Succesfully');
     }
 

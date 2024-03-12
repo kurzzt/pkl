@@ -76,10 +76,15 @@ class RetributionController extends Controller
         ];
 
         $newRetribution = Retribution::create($data);
+        return $newRetribution;
     }
 
     public function store(Request $request){
-        $this->storeReq($request);
+        $newRetribution = $this->storeReq($request);
+
+        $activityLog = new UserController;
+        $activityLog->userAction(auth()->user()->id, 'User create retribution data with id '. $newRetribution->id);
+        
         return redirect(route('retributions.index'));
     }
 
@@ -133,11 +138,19 @@ class RetributionController extends Controller
             'status' => ['required', Rule::in(['Verified', 'Unverified'])],
         ]);
         $retribution->update($data);
+
+        $activityLog = new UserController;
+        $activityLog->userAction(auth()->user()->id, 'User edit retribution data with id '. $retribution->id);
+        
         return redirect(route('retributions.index'))->with('success', 'Retribution Updated Succesfully');
     }
 
     public function destroy(Retribution $retribution){
         $retribution->delete();
+        
+        $activityLog = new UserController;
+        $activityLog->userAction(auth()->user()->id, 'User delete retribution data with id '. $retribution->id);
+        
         return redirect(route('retributions.index'))->with('success', 'Retribution deleted Succesffully');
     }
 }

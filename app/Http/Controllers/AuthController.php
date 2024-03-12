@@ -21,21 +21,24 @@ class AuthController extends Controller
 
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
-
+            
+            $activityLog = new UserController;
+            $activityLog->userAction(Auth::user()->id, 'User Logged In');
+            
             return redirect()->intended('dashboard');
         }
         return back()->with('loginError', 'Login Failed');
     }
 
     public function logout(Request $request){
-
-
+        $activityLog = new UserController;
+        $activityLog->userAction(Auth::user()->id, 'User Logged Out');
+        
         Auth::logout();
- 
         request()->session()->invalidate();
-    
         request()->session()->regenerateToken();
-    
+        
+
         return redirect('/');
     }
 }

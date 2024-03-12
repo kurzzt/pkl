@@ -20,7 +20,7 @@
 
     <div for="rusunawa_id">Rusunawa</div>
     <select required name="rusunawa_id" class="select select-bordered w-full">
-      <option disabled selected>Please Select Rusunawa</option>
+      <option disabled selected value=''>Please Select Rusunawa</option>
       @foreach($rusunawas as $rusunawa)
         <option value="{{$rusunawa->id }}">{{ $rusunawa->name}} - {{$rusunawa->subname }} - {{$rusunawa->lantai }}</option>
       @endforeach
