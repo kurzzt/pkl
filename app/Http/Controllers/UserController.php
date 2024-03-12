@@ -84,4 +84,11 @@ class UserController extends Controller
         $user->delete();
         return redirect(route('users.index'))->with('success', 'User deleted Succesfully');
     }
+
+    public function userAction(string $user_id, string $action){
+        $newAction = ActivityLog::create([
+            'user_id'=> $user_id,
+            'action' => $action
+        ]);
+    }
 }

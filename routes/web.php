@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RetributionController;
 use App\Http\Controllers\RusunawaController;
 use App\Http\Controllers\UserController;
+use App\Models\Retribution;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +24,21 @@ use App\Http\Controllers\UserController;
  * PUBLIC
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function () { 
+    return view('home.welcome');
 })->name('home.index');
+
+Route::get('/profile', function () { 
+    return view('home.profile');
+})->name('home.profile');
+
+Route::get('/service', function () { 
+    return view('home.service');
+})->name('home.service');
+
+Route::get('/service', [HomeController::class, 'service'])->name('home.service');
+Route::post('/service', [HomeController::class, 'store'])->name('home.store');
+
 
 /*
  * AUTH

@@ -9,9 +9,9 @@
     <div class="max-w-md">
       <h1 class="mb-5 text-5xl font-bold">Layanan Laporan Pembayaran Retribusi Kota Semarang</h1>
       <p class="mb-5">Layanan Pelaporan Pembayaran Retribusi kepada Dinas Komunikasi dan Statistika Pemerintah Kota Semarang</p>
-      <button class="btn btn-primary">Ajukan Laporan!</button>
+      <a href="{{ route('home.service')}}" class="btn btn-primary">Ajukan Laporan!</a>
     </div>
   </div>
 </div>
-
+@include('guest-footer')
 @endsection

@@ -19,9 +19,9 @@ class RetributionController extends Controller
             ->select('users.email','rusunawas.name','rusunawas.subname', 'rusunawas.lantai', 'retributions.*');
         
             if ($search) {
-            $retributions->where(function ($query) use ($search) {
+            $retributions = $retributions->where(function ($query) use ($search) {
                 $query->where('rusunawas.name', 'like', '%'.$search.'%')
-                        ->orWhere('rusunawas.subname', 'like', '%'.$search.'%');
+                    ->orWhere('rusunawas.subname', 'like', '%'.$search.'%');
             });
         }
         $retributions = $retributions->paginate(5);
@@ -33,9 +33,9 @@ class RetributionController extends Controller
         return view('admin.retributions.create', ['rusunawas' => $rusunawas]);
     }
 
-    public function store(Request $request){
+    public function storeReq(Request $request){
         $this->validate($request, [
-            'rusunawa' => 'required|string',
+            'rusunawa_id' => 'required|string',
             'nominal' => 'required|integer',
             'file' => 'required|string',
             'uploader_type' => ['required', Rule::in(['admin', 'guest'])],
@@ -44,25 +44,30 @@ class RetributionController extends Controller
                 'date',
                 function ($attribute, $value, $fail) use ($request) {
                     $monthYear = date('Y-m', strtotime($value));
-                    $existingRetribution = Retribution::where('rusunawa_id', $request->rusunawa)
+                    $existingRetribution = Retribution::where('rusunawa_id', $request->rusunawa_id)
                                                         ->whereRaw("DATE_FORMAT(payment_of, '%Y-%m') = ?", [$monthYear])
                                                         ->exists();
                     if ($existingRetribution) {
-                        $fail("The payment for this month and year already exists for the selected rusunawa.");
+                        $fail("The payment for this month and year already uploaded.");
                     }
                 },
-            ]
+            ],
+            'name' => 'sometimes|required|string',
+            'email' => 'sometimes|required|email'
         ]);
-        
+
         if($request->uploader_type == 'admin'){
             $uploader_id = auth()->user()->id;
         } else {
-            // Upload uploader info ke model Uploader, ambil idnya, 
-            // taruh di uploader_id
+            $uploader = Uploader::create([
+                'name' => $request->name,
+                'email' => $request->email,
+            ]);
+            $uploader_id = $uploader->id;
         }
-        
+
         $data = [
-            'rusunawa_id' => $request->rusunawa,
+            'rusunawa_id' => $request->rusunawa_id,
             'uploader_id' => $uploader_id,
             'uploader_type' => $request->uploader_type,
             'payment_of' => $request->payment_of,
@@ -71,6 +76,10 @@ class RetributionController extends Controller
         ];
 
         $newRetribution = Retribution::create($data);
+    }
+
+    public function store(Request $request){
+        $this->storeReq($request);
         return redirect(route('retributions.index'));
     }
 

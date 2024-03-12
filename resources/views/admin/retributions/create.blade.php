@@ -18,8 +18,8 @@
     @method('POST')
     <input type="hidden" value="admin" name="uploader_type" id="uploader_type">
 
-    <div for="rusunawa">Rusunawa</div>
-    <select required name="rusunawa" class="select select-bordered w-full">
+    <div for="rusunawa_id">Rusunawa</div>
+    <select required name="rusunawa_id" class="select select-bordered w-full">
       <option disabled selected>Please Select Rusunawa</option>
       @foreach($rusunawas as $rusunawa)
         <option value="{{$rusunawa->id }}">{{ $rusunawa->name}} - {{$rusunawa->subname }} - {{$rusunawa->lantai }}</option>
