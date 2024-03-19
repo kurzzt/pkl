@@ -20,7 +20,6 @@ $(document).ready(function() {
 
                   // Tetapkan nilai pathfile ke input tersembunyi dengan ID file_url
                   $('#fileUrl').val(imageUrl);
-                  console.log(data);
               } else {
                   console.error('Error uploading file:', data.error);
               }

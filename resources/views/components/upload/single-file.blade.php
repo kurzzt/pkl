@@ -45,8 +45,6 @@ $(document).ready(function() {
           // Enable it and give the original innerHMTL value back
           submitBtn.prop('disabled', false);
           submitBtn.html(originalHtml);
-          
-          console.log(data);
         } else {
           console.error('Error uploading file:', data.error);
           
